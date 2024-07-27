@@ -1,35 +1,48 @@
 package com.automaticLife.Services;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.automaticLife.Classes.Pessoa;
+import com.automaticLife.Repositories.PessoaRepository;
 
 @Service
 public class PessoaService {
 	
-   public List<Pessoa> buscarAniversariantesDoDia() {
+	@Autowired
+	private PessoaRepository repo;
+	
+	public List<Pessoa> buscarAniversariantesDoDia() {
+	   
+	   List<Pessoa> pessoas = repo.findAll();
 	   
 	   List<Pessoa> aniversariantes = new ArrayList<>();
 	   
-	   SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-	   Date dataFormatada = new Date();
-	   
-	   try {
-		   dataFormatada = formato.parse("27/07/2002");
-	   } catch (ParseException e) {
-		   e.printStackTrace();
+	   for(Pessoa person : pessoas) {
+		   if(isBirthday(person)) {
+			   aniversariantes.add(person);
+		   }
 	   }
 	   
-	   Pessoa mozinho = new Pessoa ("Meu", "+5521986199779", dataFormatada);
-	   aniversariantes.add(mozinho);
-	   
 	   return aniversariantes;
+	}
+   
+   @SuppressWarnings("deprecation")
+   public Boolean isBirthday(Pessoa pessoa) {
+	   
+	   Date dataAtual = new Date();
+	   
+	   if(dataAtual.getDay() == pessoa.getDataNascimento().getDay() && 
+		  dataAtual.getMonth() == pessoa.getDataNascimento().getMonth()) {
+		   return true;
+	   }else {
+		   return false;
+	   }
+	 
    }
 
 }

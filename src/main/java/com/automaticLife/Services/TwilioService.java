@@ -24,7 +24,7 @@ public class TwilioService {
 	   for(Pessoa pessoa : pessoas) {
 		   try {
 			   
-			Enviar(pessoa.getTelefone(), "Parabéns");
+			Enviar(pessoa.getTelefone(), "Parabéns " + pessoa.getNome());
 			
 			} catch (ParseException e) {
 				e.printStackTrace();
