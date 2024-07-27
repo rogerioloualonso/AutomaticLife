@@ -1,15 +1,31 @@
 package com.automaticLife.Classes;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Pessoa {
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
+public class Pessoa implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 	private String nome;
 	private String telefone;
 	private Date dataNascimento;
 	
 	
 	
+	public Pessoa() {
+		super();
+	}
+
 	public Pessoa(String nome, String telefone, Date dataNascimento) {
 		super();
 		this.nome = nome;
@@ -17,6 +33,14 @@ public class Pessoa {
 		this.dataNascimento = dataNascimento;
 	}
 	
+	public Pessoa(int id, String nome, String telefone, Date dataNascimento) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.telefone = telefone;
+		this.dataNascimento = dataNascimento;
+	}
+
 	public String getNome() {
 		return nome;
 	}
