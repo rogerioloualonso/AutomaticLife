@@ -1,13 +1,13 @@
-package com.automatiLife;
+package com.automaticLife;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class AutomatiLifeApplication {
+public class AutomaticLifeApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AutomatiLifeApplication.class, args);
+		SpringApplication.run(AutomaticLifeApplication.class, args);
 	}
 
 }
