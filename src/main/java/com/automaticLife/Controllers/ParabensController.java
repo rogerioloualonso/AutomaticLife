@@ -30,7 +30,7 @@ public class ParabensController {
 		
 		twilioService.EnviarMensagens(aniversariantes);
 		
-		return "Parabenizações enviadas!";
+		return "Parabenizações enviadas com sucesso!";
 	}
 
 }
