@@ -29,13 +29,22 @@ public class ParabensController {
 
 	@PostMapping("/parabenizar")
 	@ResponseBody
-	public ResponseEntity<Void> desejarParabens() throws ParseException, IOException {
+	public ResponseEntity<String> desejarParabens(){
 		
 		List<Pessoa> aniversariantes = pessoaService.buscarAniversariantesDoDia();
 		
-		twilioService.EnviarMensagens(aniversariantes);
-		
-		return ResponseEntity.status(200).build();
+		if(aniversariantes.isEmpty()) {
+			return ResponseEntity.status(200).body("Sem aniversariantes neste dia.");
+		}else {
+			try {
+				
+				twilioService.EnviarMensagens(aniversariantes);
+				return ResponseEntity.status(200).build();
+				
+			} catch (ParseException e) {
+				return ResponseEntity.status(500).build();
+			}
+		}
 	}
 	
 	@PostMapping("/excluir")
