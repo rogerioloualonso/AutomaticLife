@@ -1,20 +1,19 @@
 package com.automaticLife.Controllers;
 
-import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Optional;
 
-import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.ResponseEntity.BodyBuilder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.automaticLife.Classes.Pessoa;
+import com.automaticLife.DTO.PessoaDTO;
 import com.automaticLife.Services.PessoaService;
 import com.automaticLife.Services.TwilioService;
 
@@ -60,6 +59,21 @@ public class ParabensController {
 		else {
 			return ResponseEntity.status(404).build();
 		}
+	}
+	
+	@PostMapping("/inserir")
+	@ResponseBody
+	public ResponseEntity<String> excluirPessoa(@RequestBody PessoaDTO pessoa){
+		
+		if(pessoaService.validar(pessoa)) {
+			pessoaService.inserir(pessoa);
+			return ResponseEntity.status(200).build();
+		}else {
+			return ResponseEntity.status(400).body("Dados enviados incorretamente");
+		}
+			
+		
+		
 		
 	}
 
