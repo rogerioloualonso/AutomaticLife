@@ -3,6 +3,7 @@ package com.automaticLife.Services;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,7 +43,14 @@ public class PessoaService {
 	   }else {
 		   return false;
 	   }
-	 
+   }
+   
+   public Optional<Pessoa> buscarPorId(int id) {
+	   return repo.findById(id);
+   }
+   
+   public void excluir(int id) {
+	   repo.deleteById(id);
    }
 
 }
