@@ -71,10 +71,23 @@ public class ParabensController {
 		}else {
 			return ResponseEntity.status(400).body("Dados enviados incorretamente");
 		}
-			
+	}
+	
+	@PostMapping("/editar")
+	@ResponseBody
+	public ResponseEntity<String> excluirPessoa(@RequestParam int id, @RequestBody PessoaDTO pessoa){
 		
-		
-		
+		if(pessoaService.validar(pessoa)){
+			Optional<Pessoa> pessoaOriginal = pessoaService.buscarPorId(id);
+			if(pessoaOriginal.isPresent()) {
+				pessoaService.editar(pessoaOriginal.get(), pessoa);
+				return ResponseEntity.status(200).build();
+			}else {
+				return ResponseEntity.status(400).body("Dados enviados incorretamente");
+			}
+		}else {
+			return ResponseEntity.status(400).body("Dados enviados incorretamente");
+		}
 	}
 
 }

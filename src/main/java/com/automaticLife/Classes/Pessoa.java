@@ -41,6 +41,14 @@ public class Pessoa implements Serializable{
 		this.dataNascimento = dataNascimento;
 	}
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public String getNome() {
 		return nome;
 	}
