@@ -1,4 +1,4 @@
-package com.automaticLife.Controllers;
+package com.automaticLife.controller;
 
 import java.text.ParseException;
 import java.util.List;
@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.automaticLife.Classes.Pessoa;
-import com.automaticLife.DTO.PessoaDTO;
-import com.automaticLife.Services.PessoaService;
-import com.automaticLife.Services.TwilioService;
+import com.automaticLife.controller.dto.PessoaDTO;
+import com.automaticLife.repository.entity.Pessoa;
+import com.automaticLife.service.PessoaService;
+import com.automaticLife.service.TwilioService;
 
 @Controller
 public class ParabensController {
@@ -27,7 +27,7 @@ public class ParabensController {
 	TwilioService twilioService;
 
 	@PostMapping("/parabenizar")
-	@ResponseBody
+	@ResponseBody 
 	public ResponseEntity<String> desejarParabens(){
 		
 		List<Pessoa> aniversariantes = pessoaService.buscarAniversariantesDoDia();

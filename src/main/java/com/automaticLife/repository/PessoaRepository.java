@@ -1,8 +1,8 @@
-package com.automaticLife.Repositories;
+package com.automaticLife.repository;
 
 import org.springframework.stereotype.Repository;
 
-import com.automaticLife.Classes.Pessoa;
+import com.automaticLife.repository.entity.Pessoa;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;

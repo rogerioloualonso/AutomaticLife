@@ -1,4 +1,4 @@
-package com.automaticLife.DTO;
+package com.automaticLife.controller.dto;
 
 import java.util.Date;
 

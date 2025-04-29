@@ -1,4 +1,4 @@
-package com.automaticLife.Services;
+package com.automaticLife.service;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,9 +13,9 @@ import org.springframework.stereotype.Service;
 public class ChatGPTService {
 
    public String chatGPT(String prompt) {
-       String url = "https://api.openai.com/v1/chat/completions";
-       String apiKey = "Chave da API";
-       String model = "gpt-3.5-turbo";
+       String url = "{{url}}";
+       String apiKey = "{{apikey}}";
+       String model = "{{model}}";
 
        try {
            URL obj = new URL(url);

@@ -1,4 +1,4 @@
-package com.automaticLife.Services;
+package com.automaticLife.service;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -7,8 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.automaticLife.Classes.Pessoa;
-
+import com.automaticLife.repository.entity.Pessoa;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
@@ -19,9 +18,9 @@ public class TwilioService {
 	@Autowired
 	ChatGPTService chatGPTService;
 	
-	public static final String ACCOUNT_SID = "SID Aqui!";
-	public static final String AUTH_TOKEN = "Auth Tojen aqui!";
-	public static final String FROM_NUMERO = "Número aqui!";
+	public static final String ACCOUNT_SID = "{{account}}";
+	public static final String AUTH_TOKEN = "{{auth}}";
+	public static final String FROM_NUMERO = "{{numero}}";
 	
    public void EnviarMensagens(List<Pessoa> pessoas) throws ParseException {
 	   

@@ -1,4 +1,4 @@
-package com.automaticLife.Classes;
+package com.automaticLife.repository.entity;
 
 import java.io.Serializable;
 import java.util.Date;
