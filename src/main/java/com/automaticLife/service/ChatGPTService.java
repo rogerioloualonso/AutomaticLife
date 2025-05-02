@@ -7,15 +7,23 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ChatGPTService {
+	
+	@Value("${CHATGPT_APIKEY}")
+	private String apiKey;
+	
+	@Value("${CHATGPT_URL}")
+	private String url = "https://api.openai.com/v1/chat/completions";
+	
+	@Value("${CHATGPT_MODEL}")
+	private String model;
 
-   public String chatGPT(String prompt) {
-       String url = "{{url}}";
-       String apiKey = "{{apikey}}";
-       String model = "{{model}}";
+	public String chatGPT(String prompt) {
+       
 
        try {
            URL obj = new URL(url);
