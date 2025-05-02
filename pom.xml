@@ -8,27 +8,14 @@
 		<version>3.3.2</version>
 		<relativePath/>
 	</parent>
-	<groupId>com.example</groupId>
+	<groupId>com</groupId>
 	<artifactId>automatiLife</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>automatiLife</name>
 	<description>Projeto de automatização da vida</description>
-	<url/>
-	<licenses>
-		<license/>
-	</licenses>
-	<developers>
-		<developer/>
-	</developers>
-	<scm>
-		<connection/>
-		<developerConnection/>
-		<tag/>
-		<url/>
-	</scm>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
