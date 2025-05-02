@@ -17,7 +17,7 @@ public class ChatGPTService {
 	private String apiKey;
 	
 	@Value("${CHATGPT_URL}")
-	private String url = "https://api.openai.com/v1/chat/completions";
+	private String url;
 	
 	@Value("${CHATGPT_MODEL}")
 	private String model;

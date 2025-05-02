@@ -22,7 +22,7 @@ public class TwilioService {
 	@Value("${TWILIO_ACCOUNT}")
 	private String ACCOUNT_SID;
 	
-	@Value("${TWILIO_AUTH}")
+	@Value("${TWILIO_AUTH_TOKEN}")
 	private String AUTH_TOKEN;
 	
 	@Value("${TWILIO_NUMBER}")
