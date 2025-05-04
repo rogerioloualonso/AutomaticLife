@@ -1,14 +1,13 @@
 package com.automaticLife.repository.entity;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,10 +26,10 @@ public class Pessoa implements Serializable{
 	private int id;
 	private String nome;
 	private String telefone;
-	private Date dataNascimento;
+	private LocalDateTime dataNascimento;
 	
 
-	public Pessoa(String nome, String telefone, Date dataNascimento) {
+	public Pessoa(String nome, String telefone, LocalDateTime dataNascimento) {
 		super();
 		this.nome = nome;
 		this.telefone = telefone;

@@ -1,5 +1,6 @@
 package com.automaticLife.service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -50,13 +51,11 @@ public class PessoaService {
 	   return aniversariantes;
 	}
    
-   @SuppressWarnings("deprecation")
    public Boolean isBirthday(Pessoa pessoa) {
 	   
-	   Date dataAtual = new Date();
+	   LocalDateTime dataAtual = LocalDateTime.now();
 	   
-	   if(dataAtual.getDay() == pessoa.getDataNascimento().getDay() && 
-		  dataAtual.getMonth() == pessoa.getDataNascimento().getMonth()) {
+	   if(dataAtual.getDayOfYear() == pessoa.getDataNascimento().getDayOfYear()) {
 		   return true;
 	   }else {
 		   return false;

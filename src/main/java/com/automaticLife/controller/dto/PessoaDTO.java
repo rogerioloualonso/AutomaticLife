@@ -1,6 +1,6 @@
 package com.automaticLife.controller.dto;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,6 +15,6 @@ public class PessoaDTO{
 	
 	private String nome;
 	private String telefone;
-	private Date dataNascimento;
+	private LocalDateTime dataNascimento;
 
 }
