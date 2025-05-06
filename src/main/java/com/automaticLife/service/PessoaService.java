@@ -37,30 +37,8 @@ public class PessoaService {
 	}
 	
 	public List<Pessoa> buscarAniversariantesDoDia() {
-	   
-	   List<Pessoa> pessoas = repo.findAll();
-	   
-	   List<Pessoa> aniversariantes = new ArrayList<>();
-	   
-	   for(Pessoa person : pessoas) {
-		   if(isBirthday(person)) {
-			   aniversariantes.add(person);
-		   }
-	   }
-	   
-	   return aniversariantes;
+	   return repo.buscarAniversariantesDia("05", "06");
 	}
-   
-   public Boolean isBirthday(Pessoa pessoa) {
-	   
-	   LocalDateTime dataAtual = LocalDateTime.now();
-	   
-	   if(dataAtual.getDayOfYear() == pessoa.getDataNascimento().getDayOfYear()) {
-		   return true;
-	   }else {
-		   return false;
-	   }
-   }
    
    public Optional<Pessoa> buscarPorId(int id) {
 	   return repo.findById(id);
