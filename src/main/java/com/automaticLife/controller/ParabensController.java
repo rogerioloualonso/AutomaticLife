@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.automaticLife.controller.dto.PessoaDTO;
 import com.automaticLife.repository.entity.Pessoa;
 import com.automaticLife.service.PessoaService;
-import com.automaticLife.service.TwilioService;
+import com.automaticLife.service.external.TwilioService;
 
 @Controller
 public class ParabensController {

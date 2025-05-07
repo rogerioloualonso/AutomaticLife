@@ -1,4 +1,4 @@
-package com.automaticLife.service;
+package com.automaticLife.service.external;
 
 import java.io.BufferedReader;
 import java.io.IOException;
