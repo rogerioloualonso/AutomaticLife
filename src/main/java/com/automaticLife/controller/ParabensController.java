@@ -45,49 +45,5 @@ public class ParabensController {
 			}
 		}
 	}
-	
-	@PostMapping("/excluir")
-	@ResponseBody
-	public ResponseEntity<Void> excluirPessoa(@RequestParam int id){
-		
-		Optional<Pessoa> pessoa = pessoaService.buscarPorId(id);
-		
-		if(!pessoa.isEmpty()) {
-			pessoaService.excluir(id);
-			return ResponseEntity.status(200).build();
-		}
-		else {
-			return ResponseEntity.status(404).build();
-		}
-	}
-	
-	@PostMapping("/inserir")
-	@ResponseBody
-	public ResponseEntity<String> excluirPessoa(@RequestBody PessoaDTO pessoa){
-		
-		if(pessoaService.validar(pessoa)) {
-			pessoaService.inserir(pessoa);
-			return ResponseEntity.status(200).build();
-		}else {
-			return ResponseEntity.status(400).body("Dados enviados incorretamente");
-		}
-	}
-	
-	@PostMapping("/editar")
-	@ResponseBody
-	public ResponseEntity<String> excluirPessoa(@RequestParam int id, @RequestBody PessoaDTO pessoa){
-		
-		if(pessoaService.validar(pessoa)){
-			Optional<Pessoa> pessoaOriginal = pessoaService.buscarPorId(id);
-			if(pessoaOriginal.isPresent()) {
-				pessoaService.editar(pessoaOriginal.get(), pessoa);
-				return ResponseEntity.status(200).build();
-			}else {
-				return ResponseEntity.status(400).body("Dados enviados incorretamente");
-			}
-		}else {
-			return ResponseEntity.status(400).body("Dados enviados incorretamente");
-		}
-	}
 
 }
