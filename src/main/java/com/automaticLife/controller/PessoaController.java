@@ -19,47 +19,46 @@ import com.automaticLife.service.PessoaService;
 @Controller
 @RequestMapping("/pessoa")
 public class PessoaController {
-	
+
 	@Autowired
 	PessoaService pessoaService;
-	
+
 	@PostMapping
-	public ResponseEntity<String> excluirPessoa(@RequestBody PessoaDTO pessoa){
-		
-		if(pessoaService.validar(pessoa)) {
+	public ResponseEntity<String> excluirPessoa(@RequestBody PessoaDTO pessoa) {
+
+		if (pessoaService.validar(pessoa)) {
 			pessoaService.inserir(pessoa);
 			return ResponseEntity.status(200).build();
-		}else {
+		} else {
 			return ResponseEntity.status(400).body("Dados enviados incorretamente");
 		}
 	}
-	
+
 	@PutMapping
-	public ResponseEntity<String> excluirPessoa(@RequestParam int id, @RequestBody PessoaDTO pessoa){
-		
-		if(pessoaService.validar(pessoa)){
+	public ResponseEntity<String> excluirPessoa(@RequestParam int id, @RequestBody PessoaDTO pessoa) {
+
+		if (pessoaService.validar(pessoa)) {
 			Optional<Pessoa> pessoaOriginal = pessoaService.buscarPorId(id);
-			if(pessoaOriginal.isPresent()) {
+			if (pessoaOriginal.isPresent()) {
 				pessoaService.editar(pessoaOriginal.get(), pessoa);
 				return ResponseEntity.status(200).build();
-			}else {
+			} else {
 				return ResponseEntity.status(400).body("Dados enviados incorretamente");
 			}
-		}else {
+		} else {
 			return ResponseEntity.status(400).body("Dados enviados incorretamente");
 		}
 	}
-	
+
 	@DeleteMapping
-	public ResponseEntity<Void> excluirPessoa(@RequestParam int id){
-		
+	public ResponseEntity<Void> excluirPessoa(@RequestParam int id) {
+
 		Optional<Pessoa> pessoa = pessoaService.buscarPorId(id);
-		
-		if(!pessoa.isEmpty()) {
+
+		if (!pessoa.isEmpty()) {
 			pessoaService.excluir(id);
 			return ResponseEntity.status(200).build();
-		}
-		else {
+		} else {
 			return ResponseEntity.status(404).build();
 		}
 	}

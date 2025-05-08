@@ -11,10 +11,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PessoaDTO{
-	
+public class PessoaDTO {
+
 	private String nome;
 	private String telefone;
 	private LocalDateTime dataNascimento;
-
 }
