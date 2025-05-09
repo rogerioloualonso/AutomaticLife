@@ -13,10 +13,10 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PessoaDTO {
+public class PeopleDTO {
 
-	private String nome;
-	private String telefone;
+	private String name;
+	private String phoneNumer;
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	private LocalDateTime dataNascimento;
+	private LocalDateTime birthday;
 }

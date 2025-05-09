@@ -7,35 +7,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.automaticLife.repository.entity.Pessoa;
-import com.automaticLife.service.PessoaService;
+import com.automaticLife.repository.entity.People;
+import com.automaticLife.service.PeopleService;
 import com.automaticLife.service.external.TwilioService;
 
 @Controller
 public class ParabensController {
 
 	@Autowired
-	PessoaService pessoaService;
+	PeopleService peopleService;
 
 	@Autowired
 	TwilioService twilioService;
 
-	@PostMapping("/parabenizar")
-	@ResponseBody
+	@PostMapping("/congratulations")
 	public ResponseEntity<String> desejarParabens() {
 
-		List<Pessoa> aniversariantes = pessoaService.buscarAniversariantesDoDia();
+		List<People> birthdays = peopleService.searchBirthdays();
 
-		if (aniversariantes.isEmpty()) {
+		if (birthdays.isEmpty()) {
 			return ResponseEntity.status(204).body("Sem aniversariantes neste dia.");
 		} else {
 			try {
-
-				twilioService.EnviarMensagens(aniversariantes);
+				twilioService.sendWhatsAppMessage(birthdays);
 				return ResponseEntity.status(200).build();
-
 			} catch (ParseException e) {
 				return ResponseEntity.status(500).build();
 			}

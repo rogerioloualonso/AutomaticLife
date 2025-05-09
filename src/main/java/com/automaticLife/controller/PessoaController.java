@@ -12,22 +12,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.automaticLife.controller.dto.PessoaDTO;
-import com.automaticLife.repository.entity.Pessoa;
-import com.automaticLife.service.PessoaService;
+import com.automaticLife.controller.dto.PeopleDTO;
+import com.automaticLife.repository.entity.People;
+import com.automaticLife.service.PeopleService;
 
 @Controller
-@RequestMapping("/pessoa")
+@RequestMapping("/people")
 public class PessoaController {
 
 	@Autowired
-	PessoaService pessoaService;
+	PeopleService peopleService;
 
 	@PostMapping
-	public ResponseEntity<String> inserir(@RequestBody PessoaDTO pessoa) {
+	public ResponseEntity<String> insert(@RequestBody PeopleDTO people) {
 
-		if (pessoaService.validar(pessoa)) {
-			pessoaService.inserir(pessoa);
+		if (peopleService.validate(people)) {
+			peopleService.insert(people);
 			return ResponseEntity.status(200).build();
 		} else {
 			return ResponseEntity.status(400).body("Dados enviados incorretamente");
@@ -35,12 +35,12 @@ public class PessoaController {
 	}
 
 	@PutMapping
-	public ResponseEntity<String> editar(@RequestParam int id, @RequestBody PessoaDTO pessoa) {
+	public ResponseEntity<String> edit(@RequestParam int id, @RequestBody PeopleDTO people) {
 
-		if (pessoaService.validar(pessoa)) {
-			Optional<Pessoa> pessoaOriginal = pessoaService.buscarPorId(id);
-			if (pessoaOriginal.isPresent()) {
-				pessoaService.editar(pessoaOriginal.get(), pessoa);
+		if (peopleService.validate(people)) {
+			Optional<People> entity = peopleService.searchById(id);
+			if (entity.isPresent()) {
+				peopleService.edit(entity.get(), people);
 				return ResponseEntity.status(200).build();
 			} else {
 				return ResponseEntity.status(400).body("Dados enviados incorretamente");
@@ -51,12 +51,12 @@ public class PessoaController {
 	}
 
 	@DeleteMapping
-	public ResponseEntity<Void> excluir(@RequestParam int id) {
+	public ResponseEntity<Void> delete(@RequestParam int id) {
 
-		Optional<Pessoa> pessoa = pessoaService.buscarPorId(id);
+		Optional<People> entity = peopleService.searchById(id);
 
-		if (!pessoa.isEmpty()) {
-			pessoaService.excluir(id);
+		if (!entity.isEmpty()) {
+			peopleService.delete(id);
 			return ResponseEntity.status(200).build();
 		} else {
 			return ResponseEntity.status(404).build();

@@ -2,11 +2,11 @@ CREATE SCHEMA `dbautomaticlife` ;
 
 CREATE TABLE pessoa (
 id INT PRIMARY KEY AUTO_INCREMENT,
-nome VARCHAR(100),
-telefone VARCHAR(15),
-dataNascimento DATETIME
+name VARCHAR(100),
+phoneNumber VARCHAR(15),
+birthday DATETIME
 );
 
-INSERT INTO pessoa (nome, telefone, data_nascimento) VALUES ("Rogério", "+5521986199779", "1998-11-18");
+INSERT INTO pessoa (name, phoneNumber, birthday) VALUES ("Rogério", "+5521986199779", "1998-11-18");
 
 SELECT * FROM pessoa;

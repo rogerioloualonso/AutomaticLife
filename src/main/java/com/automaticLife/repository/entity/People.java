@@ -17,22 +17,22 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Pessoa implements Serializable {
+public class People implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private String nome;
-	private String telefone;
-	private LocalDateTime dataNascimento;
+	private String name;
+	private String phoneNumber;
+	private LocalDateTime birthday;
 
-	public Pessoa(String nome, String telefone, LocalDateTime dataNascimento) {
+	public People(String name, String phoneNumber, LocalDateTime birthday) {
 		super();
-		this.nome = nome;
-		this.telefone = telefone;
-		this.dataNascimento = dataNascimento;
+		this.name = name;
+		this.phoneNumber = phoneNumber;
+		this.birthday = birthday;
 	}
 
 }
