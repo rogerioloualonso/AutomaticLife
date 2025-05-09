@@ -18,7 +18,7 @@ import com.automaticLife.service.PeopleService;
 
 @Controller
 @RequestMapping("/people")
-public class PessoaController {
+public class PeopleController {
 
 	@Autowired
 	PeopleService peopleService;

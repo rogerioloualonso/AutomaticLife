@@ -33,12 +33,12 @@ public class TwilioService {
 		for (People people : peoples) {
 			try {
 
-				String solicitacao = "Criar uma mensagem bonita de parabéns no Whatsapp sem " + " pular linha para "
+				String solicitation = "Criar uma mensagem bonita de parabéns no Whatsapp sem " + " pular linha para "
 						+ people.getName() + " enviado por Rogério";
-				String mensagem = chatGPTService.chatGPT(solicitacao);
+				String response = chatGPTService.chatGPT(solicitation);
 
-				Enviar(people.getPhoneNumber(), mensagem);
-				Enviar(people.getPhoneNumber(), "Ass, Rogério Alonso");
+				send(people.getPhoneNumber(), response);
+				send(people.getPhoneNumber(), "Ass, Rogério Alonso");
 
 			} catch (ParseException e) {
 				e.printStackTrace();
@@ -48,7 +48,7 @@ public class TwilioService {
 		}
 	}
 
-	public void Enviar(String phoneNumber, String message) throws ParseException, IOException {
+	public void send(String phoneNumber, String message) throws ParseException, IOException {
 
 		Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 		Message.creator(new PhoneNumber("whatsapp:" + phoneNumber), new PhoneNumber("whatsapp:" + FROM_NUMERO), message)

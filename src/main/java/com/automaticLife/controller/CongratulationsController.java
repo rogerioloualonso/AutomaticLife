@@ -13,7 +13,7 @@ import com.automaticLife.service.PeopleService;
 import com.automaticLife.service.external.TwilioService;
 
 @Controller
-public class ParabensController {
+public class CongratulationsController {
 
 	@Autowired
 	PeopleService peopleService;

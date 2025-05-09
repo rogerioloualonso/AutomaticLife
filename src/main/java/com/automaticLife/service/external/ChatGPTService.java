@@ -49,14 +49,14 @@ public class ChatGPTService {
 			}
 			br.close();
 
-			return extrairMensagemdaResponse(response.toString());
+			return extractMessageFromResponse(response.toString());
 
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	public static String extrairMensagemdaResponse(String response) {
+	public static String extractMessageFromResponse(String response) {
 
 		int start = response.indexOf("content") + 11;
 		int end = response.indexOf("\"", start);

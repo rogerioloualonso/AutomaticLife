@@ -46,9 +46,8 @@ public class PeopleService {
 		repo.save(novaPessoa);
 	}
 
-	public void edit(People pessoaOriginal, PeopleDTO pessoa) {
-		People editPessoa = new People(pessoaOriginal.getId(), pessoa.getName(), pessoa.getPhoneNumer(),
-				pessoa.getBirthday());
+	public void edit(People entity, PeopleDTO pessoa) {
+		People editPessoa = new People(entity.getId(), pessoa.getName(), pessoa.getPhoneNumer(), pessoa.getBirthday());
 		repo.save(editPessoa);
 	}
 
