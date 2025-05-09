@@ -24,7 +24,7 @@ public class PessoaController {
 	PessoaService pessoaService;
 
 	@PostMapping
-	public ResponseEntity<String> excluirPessoa(@RequestBody PessoaDTO pessoa) {
+	public ResponseEntity<String> inserir(@RequestBody PessoaDTO pessoa) {
 
 		if (pessoaService.validar(pessoa)) {
 			pessoaService.inserir(pessoa);
@@ -35,7 +35,7 @@ public class PessoaController {
 	}
 
 	@PutMapping
-	public ResponseEntity<String> excluirPessoa(@RequestParam int id, @RequestBody PessoaDTO pessoa) {
+	public ResponseEntity<String> editar(@RequestParam int id, @RequestBody PessoaDTO pessoa) {
 
 		if (pessoaService.validar(pessoa)) {
 			Optional<Pessoa> pessoaOriginal = pessoaService.buscarPorId(id);
@@ -51,7 +51,7 @@ public class PessoaController {
 	}
 
 	@DeleteMapping
-	public ResponseEntity<Void> excluirPessoa(@RequestParam int id) {
+	public ResponseEntity<Void> excluir(@RequestParam int id) {
 
 		Optional<Pessoa> pessoa = pessoaService.buscarPorId(id);
 

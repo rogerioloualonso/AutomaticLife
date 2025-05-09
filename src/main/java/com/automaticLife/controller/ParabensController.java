@@ -29,7 +29,7 @@ public class ParabensController {
 		List<Pessoa> aniversariantes = pessoaService.buscarAniversariantesDoDia();
 
 		if (aniversariantes.isEmpty()) {
-			return ResponseEntity.status(200).body("Sem aniversariantes neste dia.");
+			return ResponseEntity.status(204).body("Sem aniversariantes neste dia.");
 		} else {
 			try {
 

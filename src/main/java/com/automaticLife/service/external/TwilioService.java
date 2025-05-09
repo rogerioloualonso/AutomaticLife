@@ -51,8 +51,7 @@ public class TwilioService {
 	public void Enviar(String toNumero, String mensagem) throws ParseException, IOException {
 
 		Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
-		Message message = Message
-				.creator(new PhoneNumber("whatsapp:" + toNumero), new PhoneNumber("whatsapp:" + FROM_NUMERO), mensagem)
+		Message.creator(new PhoneNumber("whatsapp:" + toNumero), new PhoneNumber("whatsapp:" + FROM_NUMERO), mensagem)
 				.create();
 	}
 
