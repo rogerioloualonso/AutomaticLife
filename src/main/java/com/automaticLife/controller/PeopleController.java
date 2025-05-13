@@ -20,32 +20,42 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 public interface PeopleController {
 
 	@ApiOperation(value = "Create new people")
-	@RequestBody(description = "People data to edit", required = true, content = @Content(schema = @Schema(implementation = PeopleDTO.class), examples = @ExampleObject(name = "Example People", value = """
-					{
-					  "name": "Maria Silva",
-					  "phoneNumer": "21987458789",
-					  "birthday": "2022-09-20 21:02:00"
-					}
-			""")))
+	@RequestBody(description = "People data to edit", 
+	 required = true, 
+	 content = @Content(schema = 
+	 	@Schema(implementation = PeopleDTO.class), 
+	 	examples = @ExampleObject(name = "Example People", 
+	 	value = """
+				{
+				  "name": "Maria Silva",
+				  "phoneNumer": "21987458789",
+				  "birthday": "2022-09-20 21:02:00"
+				}
+		""")))
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "People created!"),
 			@ApiResponse(responseCode = "500", description = "Sorry, bad execution...") })
 	@RequestMapping(value = "/people", method = RequestMethod.POST)
 	public ResponseEntity<Void> insert(PeopleDTO people);
 
 	@ApiOperation(value = "Edit people")
-	@RequestBody(description = "People data to edit", required = true, content = @Content(schema = @Schema(implementation = PeopleDTO.class), examples = @ExampleObject(name = "Example People", value = """
-					{
-					  "name": "Maria Silva",
-					  "phoneNumer": "21987458789",
-					  "birthday": "2022-09-20 21:02:00"
-					}
-			""")))
+	@Parameter(description = "ID of people", example = "1", required = true)
+	@RequestBody(description = "People data to edit", 
+				 required = true, 
+				 content = @Content(schema = 
+				 	@Schema(implementation = PeopleDTO.class), 
+				 	examples = @ExampleObject(name = "Example People", 
+				 	value = """
+							{
+							  "name": "Maria Silva",
+							  "phoneNumer": "21987458789",
+							  "birthday": "2022-09-20 21:02:00"
+							}
+					""")))
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Congratulations send!"),
 			@ApiResponse(responseCode = "404", description = "People not found."),
 			@ApiResponse(responseCode = "500", description = "Sorry, bad execution...") })
 	@RequestMapping(value = "/people", method = RequestMethod.PUT)
-	public ResponseEntity<Void> edit(@Parameter(description = "ID of people", example = "1", required = true) int id,
-			PeopleDTO people);
+	public ResponseEntity<Void> edit(@Parameter(description = "ID of people", example = "1", required = true) int id, PeopleDTO people);
 
 	@ApiOperation(value = "Delete people")
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Congratulations send!"),
