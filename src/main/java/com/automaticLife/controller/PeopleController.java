@@ -1,59 +1,56 @@
 package com.automaticLife.controller;
 
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.automaticLife.controller.dto.PeopleDTO;
-import com.automaticLife.repository.entity.People;
-import com.automaticLife.service.PeopleService;
+import com.automaticLife.dto.PeopleDTO;
 
-import jakarta.validation.Valid;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
-@Controller
-@RequestMapping("/people")
-public class PeopleController {
+@Tag(name = "People", description = "People operations")
+public interface PeopleController {
 
-	@Autowired
-	PeopleService peopleService;
+	@ApiOperation(value = "Create new people")
+	@RequestBody(description = "People data to edit", required = true, content = @Content(schema = @Schema(implementation = PeopleDTO.class), examples = @ExampleObject(name = "Example People", value = """
+					{
+					  "name": "Maria Silva",
+					  "phoneNumer": "21987458789",
+					  "birthday": "2022-09-20 21:02:00"
+					}
+			""")))
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "People created!"),
+			@ApiResponse(responseCode = "500", description = "Sorry, bad execution...") })
+	@RequestMapping(value = "/people", method = RequestMethod.POST)
+	public ResponseEntity<Void> insert(PeopleDTO people);
 
-	@PostMapping
-	public ResponseEntity<String> insert(@Valid @RequestBody PeopleDTO people) {
-		peopleService.insert(people);
-		return ResponseEntity.status(200).build();
-	}
+	@ApiOperation(value = "Edit people")
+	@RequestBody(description = "People data to edit", required = true, content = @Content(schema = @Schema(implementation = PeopleDTO.class), examples = @ExampleObject(name = "Example People", value = """
+					{
+					  "name": "Maria Silva",
+					  "phoneNumer": "21987458789",
+					  "birthday": "2022-09-20 21:02:00"
+					}
+			""")))
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Congratulations send!"),
+			@ApiResponse(responseCode = "404", description = "People not found."),
+			@ApiResponse(responseCode = "500", description = "Sorry, bad execution...") })
+	@RequestMapping(value = "/people", method = RequestMethod.PUT)
+	public ResponseEntity<Void> edit(@Parameter(description = "ID of people", example = "1", required = true) int id,
+			PeopleDTO people);
 
-	@PutMapping
-	public ResponseEntity<String> edit(@Valid @RequestParam int id, @RequestBody PeopleDTO people) {
-
-		Optional<People> entity = peopleService.searchById(id);
-
-		if (entity.isPresent()) {
-			peopleService.edit(id, people);
-			return ResponseEntity.status(200).build();
-		} else {
-			return ResponseEntity.status(400).body("Dados enviados incorretamente");
-		}
-	}
-
-	@DeleteMapping
-	public ResponseEntity<Void> delete(@RequestParam int id) {
-
-		Optional<People> entity = peopleService.searchById(id);
-
-		if (!entity.isEmpty()) {
-			peopleService.delete(id);
-			return ResponseEntity.status(200).build();
-		} else {
-			return ResponseEntity.status(404).build();
-		}
-	}
+	@ApiOperation(value = "Delete people")
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Congratulations send!"),
+			@ApiResponse(responseCode = "404", description = "People not found."),
+			@ApiResponse(responseCode = "500", description = "Sorry, bad execution...") })
+	@RequestMapping(value = "/people", method = RequestMethod.DELETE)
+	public ResponseEntity<Void> delete(@Parameter(description = "ID of people", example = "1", required = true) int id);
 }

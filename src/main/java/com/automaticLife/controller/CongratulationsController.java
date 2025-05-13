@@ -1,42 +1,23 @@
 package com.automaticLife.controller;
 
-import java.text.ParseException;
-import java.time.LocalDateTime;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.automaticLife.repository.entity.People;
-import com.automaticLife.service.PeopleService;
-import com.automaticLife.service.external.TwilioService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
-@Controller
-public class CongratulationsController {
+@Tag(name = "Congratulations", description = "Operations for send congratulations")
+public interface CongratulationsController {
 
-	@Autowired
-	PeopleService peopleService;
-
-	@Autowired
-	TwilioService twilioService;
-
-	@PostMapping("/congratulations")
-	public ResponseEntity<String> sendCongratulations() {
-
-		List<People> birthdays = peopleService.searchBirthdaysFromDay(LocalDateTime.now());
-
-		if (birthdays.isEmpty()) {
-			return ResponseEntity.status(204).body("Sem aniversariantes neste dia.");
-		} else {
-			try {
-				twilioService.sendWhatsAppMessage(birthdays);
-				return ResponseEntity.status(200).build();
-			} catch (ParseException e) {
-				return ResponseEntity.status(500).build();
-			}
-		}
-	}
-
+	@ApiOperation(value = "Send congratulatios to people that make birthday today")
+	@ApiResponses(value = { 
+			@ApiResponse(responseCode = "200", description = "Congratulations send!"),
+			@ApiResponse(responseCode = "204", description = "Not birthday today."),
+			@ApiResponse(responseCode = "500", description = "Sorry, bad execution...")
+			})
+	@RequestMapping(value = "/congratulations", method = RequestMethod.POST)
+	public ResponseEntity<String> sendCongratulations();
 }
