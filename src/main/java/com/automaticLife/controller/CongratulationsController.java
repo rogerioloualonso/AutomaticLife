@@ -1,6 +1,7 @@
 package com.automaticLife.controller;
 
 import java.text.ParseException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class CongratulationsController {
 	@PostMapping("/congratulations")
 	public ResponseEntity<String> desejarParabens() {
 
-		List<People> birthdays = peopleService.searchBirthdays();
+		List<People> birthdays = peopleService.searchBirthdaysFromDay(LocalDateTime.now());
 
 		if (birthdays.isEmpty()) {
 			return ResponseEntity.status(204).body("Sem aniversariantes neste dia.");

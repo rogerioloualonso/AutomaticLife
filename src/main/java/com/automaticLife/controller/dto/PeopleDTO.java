@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,8 +16,13 @@ import lombok.Setter;
 @NoArgsConstructor
 public class PeopleDTO {
 
+	@NotBlank(message = "name")
 	private String name;
+
+	@NotBlank(message = "phoneNumber")
 	private String phoneNumer;
+
+	@NotBlank(message = "birthday")
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime birthday;
 }

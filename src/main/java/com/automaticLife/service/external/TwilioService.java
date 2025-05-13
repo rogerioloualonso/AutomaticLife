@@ -35,10 +35,10 @@ public class TwilioService {
 
 				String solicitation = "Criar uma mensagem bonita de parabéns no Whatsapp sem " + " pular linha para "
 						+ people.getName() + " enviado por Rogério";
+
 				String response = chatGPTService.chatGPT(solicitation);
 
 				send(people.getPhoneNumber(), response);
-				send(people.getPhoneNumber(), "Ass, Rogério Alonso");
 
 			} catch (ParseException e) {
 				e.printStackTrace();

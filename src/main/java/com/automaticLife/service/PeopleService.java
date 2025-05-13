@@ -1,5 +1,6 @@
 package com.automaticLife.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,21 +17,9 @@ public class PeopleService {
 	@Autowired
 	private PeopleRepository repo;
 
-	public Boolean validate(PeopleDTO pessoa) {
-
-		if (pessoa == null) {
-			return false;
-		} else {
-			if (pessoa.getName() == null || pessoa.getBirthday() == null || pessoa.getPhoneNumer() == null) {
-				return false;
-			} else {
-				return true;
-			}
-		}
-	}
-
-	public List<People> searchBirthdays() {
-		return repo.searchBirthdays("05", "06");
+	public List<People> searchBirthdaysFromDay(LocalDateTime today) {
+		return repo.searchBirthdays(Integer.toString(today.getMonth().getValue()),
+				Integer.toString(today.getDayOfMonth()));
 	}
 
 	public Optional<People> searchById(int id) {
@@ -42,13 +31,11 @@ public class PeopleService {
 	}
 
 	public void insert(PeopleDTO pessoa) {
-		People novaPessoa = new People(pessoa.getName(), pessoa.getPhoneNumer(), pessoa.getBirthday());
-		repo.save(novaPessoa);
+		repo.save(new People(pessoa.getName(), pessoa.getPhoneNumer(), pessoa.getBirthday()));
 	}
 
-	public void edit(People entity, PeopleDTO pessoa) {
-		People editPessoa = new People(entity.getId(), pessoa.getName(), pessoa.getPhoneNumer(), pessoa.getBirthday());
-		repo.save(editPessoa);
+	public void edit(int id, PeopleDTO pessoa) {
+		repo.save(new People(id, pessoa.getName(), pessoa.getPhoneNumer(), pessoa.getBirthday()));
 	}
 
 }

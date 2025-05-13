@@ -16,6 +16,8 @@ import com.automaticLife.controller.dto.PeopleDTO;
 import com.automaticLife.repository.entity.People;
 import com.automaticLife.service.PeopleService;
 
+import jakarta.validation.Valid;
+
 @Controller
 @RequestMapping("/people")
 public class PeopleController {
@@ -24,27 +26,19 @@ public class PeopleController {
 	PeopleService peopleService;
 
 	@PostMapping
-	public ResponseEntity<String> insert(@RequestBody PeopleDTO people) {
-
-		if (peopleService.validate(people)) {
-			peopleService.insert(people);
-			return ResponseEntity.status(200).build();
-		} else {
-			return ResponseEntity.status(400).body("Dados enviados incorretamente");
-		}
+	public ResponseEntity<String> insert(@Valid @RequestBody PeopleDTO people) {
+		peopleService.insert(people);
+		return ResponseEntity.status(200).build();
 	}
 
 	@PutMapping
-	public ResponseEntity<String> edit(@RequestParam int id, @RequestBody PeopleDTO people) {
+	public ResponseEntity<String> edit(@Valid @RequestParam int id, @RequestBody PeopleDTO people) {
 
-		if (peopleService.validate(people)) {
-			Optional<People> entity = peopleService.searchById(id);
-			if (entity.isPresent()) {
-				peopleService.edit(entity.get(), people);
-				return ResponseEntity.status(200).build();
-			} else {
-				return ResponseEntity.status(400).body("Dados enviados incorretamente");
-			}
+		Optional<People> entity = peopleService.searchById(id);
+
+		if (entity.isPresent()) {
+			peopleService.edit(id, people);
+			return ResponseEntity.status(200).build();
 		} else {
 			return ResponseEntity.status(400).body("Dados enviados incorretamente");
 		}
