@@ -23,7 +23,7 @@ public class CongratulationsController {
 	TwilioService twilioService;
 
 	@PostMapping("/congratulations")
-	public ResponseEntity<String> desejarParabens() {
+	public ResponseEntity<String> sendCongratulations() {
 
 		List<People> birthdays = peopleService.searchBirthdaysFromDay(LocalDateTime.now());
 
