@@ -19,5 +19,5 @@ public interface CongratulationsController {
 			@ApiResponse(responseCode = "500", description = "Sorry, bad execution...")
 			})
 	@RequestMapping(value = "/congratulations", method = RequestMethod.POST)
-	public ResponseEntity<String> sendCongratulations();
+	public ResponseEntity<Void> sendCongratulations();
 }

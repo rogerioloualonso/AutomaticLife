@@ -24,12 +24,12 @@ public class CongratulationsControllerImpl implements CongratulationsController 
 	TwilioService twilioService;
 
 	@PostMapping("/congratulations")
-	public ResponseEntity<String> sendCongratulations() {
+	public ResponseEntity<Void> sendCongratulations() {
 
 		List<People> birthdays = peopleService.searchBirthdaysFromDay(LocalDateTime.now());
 
 		if (birthdays.isEmpty()) {
-			return ResponseEntity.status(204).body("Sem aniversariantes neste dia.");
+			return ResponseEntity.status(204).build();
 		} else {
 			try {
 				twilioService.sendWhatsAppMessage(birthdays);
