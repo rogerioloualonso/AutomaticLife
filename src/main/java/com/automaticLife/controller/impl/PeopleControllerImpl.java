@@ -33,7 +33,7 @@ public class PeopleControllerImpl implements PeopleController {
 	}
 
 	@PutMapping
-	public ResponseEntity<Void> edit(@Valid @RequestParam int id, @RequestBody PeopleDTO people) {
+	public ResponseEntity<Void> edit(@RequestParam int id, @Valid @RequestBody PeopleDTO people) {
 
 		Optional<People> entity = peopleService.searchById(id);
 
