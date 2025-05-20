@@ -12,4 +12,10 @@ import lombok.Setter;
 public class ErrorResponse {
 
 	private Error error;
+
+	public static ErrorResponse createErrorResponse(String type, String description) {
+
+		return new ErrorResponse(new Error(type, description));
+	}
+
 }

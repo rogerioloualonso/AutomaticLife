@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import com.automaticLife.exception.TwilioServiceException;
 import com.automaticLife.repository.entity.People;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
@@ -40,10 +41,8 @@ public class TwilioService {
 
 				send(people.getPhoneNumber(), response);
 
-			} catch (ParseException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
+			} catch (Exception e) {
+				throw new TwilioServiceException(e);
 			}
 		}
 	}

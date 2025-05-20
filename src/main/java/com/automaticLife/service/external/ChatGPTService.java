@@ -1,7 +1,6 @@
 package com.automaticLife.service.external;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -9,6 +8,8 @@ import java.net.URL;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import com.automaticLife.exception.ChatGPTServiceException;
 
 @Service
 public class ChatGPTService {
@@ -51,8 +52,8 @@ public class ChatGPTService {
 
 			return extractMessageFromResponse(response.toString());
 
-		} catch (IOException e) {
-			throw new RuntimeException(e);
+		} catch (Exception e) {
+			throw new ChatGPTServiceException(e);
 		}
 	}
 

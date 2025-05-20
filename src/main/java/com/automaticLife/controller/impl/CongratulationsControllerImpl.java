@@ -1,6 +1,5 @@
 package com.automaticLife.controller.impl;
 
-import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -34,8 +33,8 @@ public class CongratulationsControllerImpl implements CongratulationsController 
 			try {
 				twilioService.sendWhatsAppMessage(birthdays);
 				return ResponseEntity.status(200).build();
-			} catch (ParseException e) {
-				return ResponseEntity.status(500).build();
+			} catch (Exception e) {
+				throw new RuntimeException();
 			}
 		}
 	}

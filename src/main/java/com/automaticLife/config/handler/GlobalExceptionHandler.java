@@ -10,8 +10,10 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.automaticLife.config.response.Error;
 import com.automaticLife.config.response.ErrorResponse;
+import com.automaticLife.exception.ChatGPTServiceException;
+import com.automaticLife.exception.ObjectNotFoundException;
+import com.automaticLife.exception.TwilioServiceException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -30,10 +32,38 @@ public class GlobalExceptionHandler {
 			listError.add(fieldName);
 		});
 
-		ErrorResponse error = new ErrorResponse(
-				new Error("ValidationException", "Incorrect field(s): " + listError.toString()));
+		return new ResponseEntity<>(
+				ErrorResponse.createErrorResponse("ValidationException", "Incorrect field(s): " + listError.toString()),
+				HttpStatus.BAD_REQUEST);
+	}
 
-		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+	@ExceptionHandler(TwilioServiceException.class)
+	public ResponseEntity<Object> handleMethodServiceTwilioException(TwilioServiceException e) {
+
+		return new ResponseEntity<>(ErrorResponse.createErrorResponse("TwilioServiceException", "Service unavailable"),
+				HttpStatus.SERVICE_UNAVAILABLE);
+	}
+
+	@ExceptionHandler(ChatGPTServiceException.class)
+	public ResponseEntity<Object> handleMethodServiceChatGPTException(ChatGPTServiceException e) {
+
+		return new ResponseEntity<>(ErrorResponse.createErrorResponse("ChatGPTServiceException", "Service unavailable"),
+				HttpStatus.SERVICE_UNAVAILABLE);
+	}
+
+	@ExceptionHandler(ObjectNotFoundException.class)
+	public ResponseEntity<Object> handleMethodObjectNotFoundException(ObjectNotFoundException e) {
+
+		return new ResponseEntity<>(
+				ErrorResponse.createErrorResponse("ObjectNotFoundException", e.getMessage() + " not found by id."),
+				HttpStatus.BAD_REQUEST);
+	}
+
+	@ExceptionHandler(RuntimeException.class)
+	public ResponseEntity<Object> handleMethodRuntimeException(RuntimeException e) {
+
+		return new ResponseEntity<>(ErrorResponse.createErrorResponse("RuntimeException", "Unknow exception occurred."),
+				HttpStatus.SERVICE_UNAVAILABLE);
 	}
 
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.automaticLife.controller.PeopleController;
 import com.automaticLife.dto.PeopleDTO;
+import com.automaticLife.exception.ObjectNotFoundException;
 import com.automaticLife.repository.entity.People;
 import com.automaticLife.service.PeopleService;
 
@@ -41,7 +42,7 @@ public class PeopleControllerImpl implements PeopleController {
 			peopleService.edit(id, people);
 			return ResponseEntity.status(200).build();
 		} else {
-			return ResponseEntity.status(404).build();
+			throw new ObjectNotFoundException("People");
 		}
 	}
 
@@ -54,7 +55,7 @@ public class PeopleControllerImpl implements PeopleController {
 			peopleService.delete(id);
 			return ResponseEntity.status(200).build();
 		} else {
-			return ResponseEntity.status(404).build();
+			throw new ObjectNotFoundException("People");
 		}
 	}
 }
