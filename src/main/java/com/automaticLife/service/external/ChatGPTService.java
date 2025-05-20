@@ -6,6 +6,8 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,8 @@ import com.automaticLife.exception.ChatGPTServiceException;
 
 @Service
 public class ChatGPTService {
+
+	private static Logger logger = LogManager.getLogger(ChatGPTService.class);
 
 	@Value("${CHATGPT_APIKEY}")
 	private String apiKey;
@@ -23,8 +27,9 @@ public class ChatGPTService {
 	@Value("${CHATGPT_MODEL}")
 	private String model;
 
-	public String chatGPT(String prompt) {
+	public String getMessageFromChatGPT(String prompt) {
 
+		logger.info("Starting submission to ChatGPT...");
 		try {
 			URL obj = new URL(url);
 			HttpURLConnection connection = (HttpURLConnection) obj.openConnection();
@@ -50,9 +55,12 @@ public class ChatGPTService {
 			}
 			br.close();
 
+			logger.info("Submisssions finished with success to ChatGPT!");
+
 			return extractMessageFromResponse(response.toString());
 
 		} catch (Exception e) {
+			logger.error("An error occurred in the ChatGPT service, finished with error.");
 			throw new ChatGPTServiceException(e);
 		}
 	}

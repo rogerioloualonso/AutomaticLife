@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,8 @@ import com.twilio.type.PhoneNumber;
 
 @Service
 public class TwilioService {
+
+	private static Logger logger = LogManager.getLogger(TwilioService.class);
 
 	@Autowired
 	ChatGPTService chatGPTService;
@@ -31,20 +35,23 @@ public class TwilioService {
 
 	public void sendWhatsAppMessage(List<People> peoples) throws ParseException {
 
+		logger.info("Starting submissions...");
 		for (People people : peoples) {
 			try {
 
 				String solicitation = "Criar uma mensagem bonita de parabéns no Whatsapp sem " + " pular linha para "
 						+ people.getName() + " enviado por Rogério";
 
-				String response = chatGPTService.chatGPT(solicitation);
+				String response = chatGPTService.getMessageFromChatGPT(solicitation);
 
 				send(people.getPhoneNumber(), response);
 
 			} catch (Exception e) {
+				logger.error("An error occurred in the twilio service, finished with error.");
 				throw new TwilioServiceException(e);
 			}
 		}
+		logger.info("Submisssions finished with success!");
 	}
 
 	public void send(String phoneNumber, String message) throws ParseException, IOException {

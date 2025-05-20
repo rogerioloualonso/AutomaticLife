@@ -3,6 +3,8 @@ package com.automaticLife.config.handler;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -18,6 +20,8 @@ import com.automaticLife.exception.TwilioServiceException;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+	private static Logger logger = LogManager.getLogger(GlobalExceptionHandler.class);
+
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<Object> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
 		List<String> listError = new ArrayList<String>();
@@ -32,6 +36,8 @@ public class GlobalExceptionHandler {
 			listError.add(fieldName);
 		});
 
+		logger.error("Incorrect field(s): {}.", listError.toString());
+		finishedLog();
 		return new ResponseEntity<>(
 				ErrorResponse.createErrorResponse("ValidationException", "Incorrect field(s): " + listError.toString()),
 				HttpStatus.BAD_REQUEST);
@@ -40,6 +46,8 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(TwilioServiceException.class)
 	public ResponseEntity<Object> handleMethodServiceTwilioException(TwilioServiceException e) {
 
+		logger.error("Twilio Service unavailable.");
+		finishedLog();
 		return new ResponseEntity<>(ErrorResponse.createErrorResponse("TwilioServiceException", "Service unavailable"),
 				HttpStatus.SERVICE_UNAVAILABLE);
 	}
@@ -47,6 +55,8 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(ChatGPTServiceException.class)
 	public ResponseEntity<Object> handleMethodServiceChatGPTException(ChatGPTServiceException e) {
 
+		logger.error("ChatGPT Service unavailable.");
+		finishedLog();
 		return new ResponseEntity<>(ErrorResponse.createErrorResponse("ChatGPTServiceException", "Service unavailable"),
 				HttpStatus.SERVICE_UNAVAILABLE);
 	}
@@ -54,6 +64,8 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(ObjectNotFoundException.class)
 	public ResponseEntity<Object> handleMethodObjectNotFoundException(ObjectNotFoundException e) {
 
+		logger.error("{} not found by id.", e.getMessage());
+		finishedLog();
 		return new ResponseEntity<>(
 				ErrorResponse.createErrorResponse("ObjectNotFoundException", e.getMessage() + " not found by id."),
 				HttpStatus.BAD_REQUEST);
@@ -62,8 +74,14 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(RuntimeException.class)
 	public ResponseEntity<Object> handleMethodRuntimeException(RuntimeException e) {
 
+		logger.error("Unknow exception occurred.");
+		finishedLog();
 		return new ResponseEntity<>(ErrorResponse.createErrorResponse("RuntimeException", "Unknow exception occurred."),
 				HttpStatus.SERVICE_UNAVAILABLE);
+	}
+
+	private void finishedLog() {
+		logger.info("Process finished with error.");
 	}
 
 }
