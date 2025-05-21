@@ -1,4 +1,4 @@
-package com.automaticLife.dto;
+package com.automaticLife.controller.dto;
 
 import java.time.LocalDateTime;
 

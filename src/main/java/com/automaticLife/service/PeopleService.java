@@ -7,7 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.automaticLife.dto.PeopleDTO;
+import com.automaticLife.controller.dto.PeopleDTO;
 import com.automaticLife.repository.PeopleRepository;
 import com.automaticLife.repository.entity.People;
 

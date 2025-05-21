@@ -4,7 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.automaticLife.dto.PeopleDTO;
+import com.automaticLife.controller.dto.PeopleDTO;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.Parameter;

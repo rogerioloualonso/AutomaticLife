@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.automaticLife.exception.TwilioServiceException;
 import com.automaticLife.repository.entity.People;
+import com.automaticLife.util.Prompt;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
@@ -39,12 +40,9 @@ public class TwilioService {
 		for (People people : peoples) {
 			try {
 
-				String solicitation = "Criar uma mensagem bonita de parabéns no Whatsapp sem " + " pular linha para "
-						+ people.getName() + " enviado por Rogério";
+				String message = chatGPTService.getMessageFromChatGPT(Prompt.createPromptToCongratulations(people));
 
-				String response = chatGPTService.getMessageFromChatGPT(solicitation);
-
-				send(people.getPhoneNumber(), response);
+				send(people.getPhoneNumber(), message);
 
 			} catch (Exception e) {
 				logger.error("[Twilio] An error occurred in the twilio service, finished with error.");

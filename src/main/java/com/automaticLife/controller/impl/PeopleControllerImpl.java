@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.automaticLife.controller.PeopleController;
-import com.automaticLife.dto.PeopleDTO;
+import com.automaticLife.controller.dto.PeopleDTO;
 import com.automaticLife.exception.ObjectNotFoundException;
 import com.automaticLife.repository.entity.People;
 import com.automaticLife.service.PeopleService;
