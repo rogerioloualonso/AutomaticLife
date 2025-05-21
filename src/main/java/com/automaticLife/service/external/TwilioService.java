@@ -35,7 +35,7 @@ public class TwilioService {
 
 	public void sendWhatsAppMessage(List<People> peoples) throws ParseException {
 
-		logger.info("Starting submissions...");
+		logger.info("[Twilio] Starting submissions...");
 		for (People people : peoples) {
 			try {
 
@@ -47,11 +47,11 @@ public class TwilioService {
 				send(people.getPhoneNumber(), response);
 
 			} catch (Exception e) {
-				logger.error("An error occurred in the twilio service, finished with error.");
+				logger.error("[Twilio] An error occurred in the twilio service, finished with error.");
 				throw new TwilioServiceException(e);
 			}
 		}
-		logger.info("Submisssions finished with success!");
+		logger.info("[Twilio] Submisssions finished with success!");
 	}
 
 	public void send(String phoneNumber, String message) throws ParseException, IOException {

@@ -29,18 +29,18 @@ public class CongratulationsControllerImpl implements CongratulationsController 
 	@PostMapping("/congratulations")
 	public ResponseEntity<Void> sendCongratulations() {
 
-		logger.info("Sending congratulations started.");
+		logger.info("[congratulations] Sending congratulations started.");
 
 		List<People> birthdays = peopleService.searchBirthdaysFromDay(LocalDateTime.now());
-		logger.info("Number of peoples: {}.", birthdays.size());
+		logger.info("[congratulations] Number of peoples: {}.", birthdays.size());
 
 		if (birthdays.isEmpty()) {
-			logger.info("Sending congratulations finished, people not found.");
+			logger.info("[congratulations] Sending congratulations finished, people not found.");
 			return ResponseEntity.status(204).build();
 		} else {
 			try {
 				twilioService.sendWhatsAppMessage(birthdays);
-				logger.info("Sending congratulations finished with success!");
+				logger.info("[congratulations] Sending congratulations finished with success!");
 				return ResponseEntity.status(200).build();
 			} catch (Exception e) {
 				throw new RuntimeException();

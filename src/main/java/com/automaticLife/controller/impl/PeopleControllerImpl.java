@@ -33,36 +33,36 @@ public class PeopleControllerImpl implements PeopleController {
 
 	@PostMapping
 	public ResponseEntity<Void> insert(@Valid @RequestBody PeopleDTO people) {
-		logger.info("People insert started.");
+		logger.info("[People] People insert started.");
 		peopleService.insert(people);
-		logger.info("Insert People finished with success!");
+		logger.info("[People] Insert People finished with success!");
 		return ResponseEntity.status(200).build();
 	}
 
 	@PutMapping
 	public ResponseEntity<Void> edit(@RequestParam int id, @Valid @RequestBody PeopleDTO people) {
 
-		logger.info("Edit people started.");
+		logger.info("[People] Edit people started.");
 		Optional<People> entity = peopleService.searchById(id);
 
 		if (entity.isPresent()) {
 			peopleService.edit(id, people);
-			logger.info("Edit people finished with success!");
+			logger.info("[People] Edit people finished with success!");
 			return ResponseEntity.status(200).build();
 		} else {
-			logger.error("People not found.");
+			logger.error("[People] People not found.");
 			throw new ObjectNotFoundException("People");
 		}
 	}
 
 	@DeleteMapping
 	public ResponseEntity<Void> delete(@RequestParam int id) {
-		logger.info("Delete people started.");
+		logger.info("[People] Delete people started.");
 		Optional<People> entity = peopleService.searchById(id);
 
 		if (!entity.isEmpty()) {
 			peopleService.delete(id);
-			logger.info("Delete people finished with success!");
+			logger.info("[People] Delete people finished with success!");
 			return ResponseEntity.status(200).build();
 		} else {
 			logger.error("People not found.");

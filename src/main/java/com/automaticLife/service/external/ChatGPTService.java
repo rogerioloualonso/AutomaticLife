@@ -29,7 +29,7 @@ public class ChatGPTService {
 
 	public String getMessageFromChatGPT(String prompt) {
 
-		logger.info("Starting submission to ChatGPT...");
+		logger.info("[ChatGPT] Starting submission to ChatGPT...");
 		try {
 			URL obj = new URL(url);
 			HttpURLConnection connection = (HttpURLConnection) obj.openConnection();
@@ -55,12 +55,12 @@ public class ChatGPTService {
 			}
 			br.close();
 
-			logger.info("Submisssions finished with success to ChatGPT!");
+			logger.info("[ChatGPT] Submisssions finished with success to ChatGPT!");
 
 			return extractMessageFromResponse(response.toString());
 
 		} catch (Exception e) {
-			logger.error("An error occurred in the ChatGPT service, finished with error.");
+			logger.error("[ChatGPT] An error occurred in the ChatGPT service, finished with error.");
 			throw new ChatGPTServiceException(e);
 		}
 	}
