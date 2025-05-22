@@ -26,7 +26,7 @@
   
  ## ✔️ Tarefas automatizadas
 
- - 👏🏾 Envio de parabenizações  
+ - 👏🏾 Envio de parabenizações 
    
    Após as parametrizações, realizar a inclusão dos dados no banco e utilizar o endpoint "/parabenizar".
    
