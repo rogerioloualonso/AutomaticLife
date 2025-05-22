@@ -1,0 +1,14 @@
+#!/bin/bash -e
+
+# Hook para rodar o checkStyle no commit via Maven
+# Necessário colocar na pasta .git/hooks e rodar "chmod +x pre-commit" no git bash
+
+echo "[GIT HOOK] Executando Maven Checkstyle..."
+
+if mvn checkstyle:check; then
+  echo "[GIT HOOK] ✅ Checkstyle passou. Commit liberado."
+else
+  echo "[GIT HOOK] ❌ Checkstyle encontrou problemas. Commit cancelado."
+  echo "[GIT HOOK] Corrija os erros do e tente novamente."
+  exit 1
+fi

@@ -15,6 +15,7 @@
 	<name>AutomaticLife</name>
 	<description>Projeto de automatização da vida</description>
 	<properties>
+				<install-git-hooks>exec</install-git-hooks>
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
@@ -95,6 +96,43 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+			        <execution>
+			          <id>install-git-hooks</id>
+			          <phase>validate</phase>
+			          <goals>
+			            <goal>run</goal>
+			          </goals>
+			          <configuration>
+			            <target>
+			            	<copy file="hooks/pre-commit" todir=".git/hooks" overwrite="true"/>
+			            	<chmod file=".git/hooks/pre-commit" perm="755"/>
+			            </target>
+			          </configuration>
+			        </execution>
+				</executions>
+			</plugin>
+			<plugin>
+			  <groupId>org.apache.maven.plugins</groupId>
+			  <artifactId>maven-checkstyle-plugin</artifactId>
+			  <version>3.2.1</version>
+			  <configuration>
+			    <configLocation>checkstyle/google_checkstyle.xml</configLocation>
+			    <consoleOutput>true</consoleOutput>
+			    <failsOnError>true</failsOnError>
+			  </configuration>
+			  <executions>
+			    <execution>
+			      <phase>verify</phase>
+			      <goals>
+			        <goal>check</goal>
+			      </goals>
+			    </execution>
+			  </executions>
 			</plugin>
 		</plugins>
 	</build>
